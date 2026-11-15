@@ -12,6 +12,7 @@
 :root{--text:#fff;--muted:rgba(255,255,255,.68);--line:rgba(255,255,255,.16);--warm:#FFC857;--cool:#7FDBFF;--rain:#8FC8FF;--g:#0b1026;--b1:transparent;--b2:transparent}
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:min(calc(100vh / 80),calc(100vw / 128))}
+:root{--H:100vh;--W:100vw}
 html,body{height:100%;overflow:hidden;background:#0b1026}
 body{font-family:Outfit,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased;user-select:none}
 
@@ -33,7 +34,7 @@ body.t-night {--g:linear-gradient(165deg,#060a20 0%,#121845 50%,#2a2363 105%);--
 body.dim .dimmer{opacity:.38}
 
 /* ---------- layout (designed for 1280x800, scales anywhere) ---------- */
-.app{position:relative;z-index:1;height:100vh;width:100vw;display:grid;gap:1.1rem;padding:1rem 1.2rem 1.2rem;
+.app{position:relative;z-index:1;height:var(--H);width:var(--W);display:grid;gap:1.1rem;padding:1rem 1.2rem 1.2rem;
   grid-template-columns:46% 1fr;grid-template-rows:6.6rem 1fr 21rem}
 .card{position:relative;overflow:hidden;border-radius:2.4rem;border:1px solid var(--line);
   background:linear-gradient(160deg,rgba(255,255,255,.17),rgba(255,255,255,.05)),rgba(10,18,45,.20);
@@ -190,7 +191,7 @@ body.dim .dimmer{opacity:.38}
   <header class="top">
     <div class="greet"><h1 id="greet">Hello</h1><p><i></i>Sandnes · Rogaland</p></div>
     <div class="pill" id="pill"><span class="pd"></span><span id="pillTxt">Checking the sky…</span></div>
-    <div class="clock"><div class="d"><b id="wday"></b><span id="date"></span></div><div class="t" id="time">--:--</div></div>
+    <div class="clock"><div class="d"><b id="wday"></b><span id="date"></span></div><div class="t" id="time" title="Tap for fullscreen">--:--</div></div>
   </header>
 
   <!-- HERO -->
@@ -338,6 +339,24 @@ body.dim .dimmer{opacity:.38}
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 (() => {
+  // ===== Fit to the visible screen (Silk's toolbar steals height) + fullscreen on tap =====
+  const FIT = parseFloat((location.search.match(/fit=([\d.]+)/)||[])[1]) || 0.97;
+  function fit(){
+    const vv=window.visualViewport, H=Math.floor((vv?vv.height:window.innerHeight)*FIT), W=Math.floor((vv?vv.width:window.innerWidth));
+    const r=document.documentElement;
+    r.style.setProperty('--H',H+'px'); r.style.setProperty('--W',W+'px');
+    r.style.fontSize=Math.min(H/80,W/128)+'px';
+  }
+  fit(); addEventListener('resize',fit); addEventListener('orientationchange',fit);
+  if(window.visualViewport) visualViewport.addEventListener('resize',fit);
+  setTimeout(fit,500); setTimeout(fit,2000);
+  function goFull(){
+    const e=document.documentElement, f=e.requestFullscreen||e.webkitRequestFullscreen||e.mozRequestFullScreen;
+    try{ if(document.fullscreenElement||document.webkitFullscreenElement){ (document.exitFullscreen||document.webkitExitFullscreen).call(document); } else if(f){ f.call(e); } }catch(x){}
+    setTimeout(fit,400); setTimeout(fit,1500);
+  }
+  document.addEventListener('fullscreenchange',()=>setTimeout(fit,300));
+  document.addEventListener('webkitfullscreenchange',()=>setTimeout(fit,300));
   // ===== Location: Kleivabergsbakken 6, 4326 Sandnes (approx.) – adjust if the map pin is off =====
   const LAT = 58.853, LON = 5.732;
   const REFRESH_MIN = 10;
@@ -471,6 +490,7 @@ body.dim .dimmer{opacity:.38}
     const w=$('windt'); w.style.setProperty('--so', Math.min(.85,.12+s.ws/14).toFixed(2)); w.style.setProperty('--sd', Math.max(.55,5-s.ws*.3).toFixed(2)+'s');
   }
 
+  document.querySelector('.clock').addEventListener('click',goFull);
   // tap the buddy for a little show
   const DEMOS=[
     {label:'Sunny day',code:0,day:1,t:23,ws:3,gust:5,hour:14},
