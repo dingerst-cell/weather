@@ -621,8 +621,8 @@ body.dim .dimmer{opacity:.38}
   try{
     map=L.map('map',{zoomControl:false,attributionControl:true,minZoom:5,maxZoom:9}).setView([LAT+.15,LON-.55],7);
     map.createPane('labels'); map.getPane('labels').style.zIndex=650; map.getPane('labels').style.pointerEvents='none';
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:9,attribution:'© OpenStreetMap © CARTO · Radar © RainViewer'}).addTo(map);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:9,pane:'labels'}).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:9,maxZoom:9,attribution:'Map © Esri, HERE, Garmin, OpenStreetMap contributors · Radar © RainViewer'}).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:9,maxZoom:9,pane:'labels'}).addTo(map);
     L.marker([LAT,LON],{icon:L.divIcon({className:'home',html:'<span></span>',iconSize:[18,18]}),interactive:false}).addTo(map);
   }catch(e){}
   let frames=[], layers={}, curF=0, host='', timer=null, nowIdx=0;
