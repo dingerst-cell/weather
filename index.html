@@ -57,17 +57,17 @@ body.dim .dimmer{opacity:.38}
 
 /* hero */
 .hero{padding:1.4rem 1.6rem 1.6rem;display:grid;grid-template-rows:1fr auto;gap:1rem}
-.hero-top{display:grid;grid-template-columns:27rem 1fr;align-items:center;gap:.4rem;min-height:0}
-.figwrap{height:27rem;width:27rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero-top{display:grid;grid-template-columns:23rem 1fr;align-items:center;gap:.4rem;min-height:0}
+.figwrap{height:23rem;width:23rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .now{min-width:0}
-.temp{font-size:13rem;font-weight:200;line-height:.86;letter-spacing:-.7rem;text-shadow:0 .4rem 3rem rgba(0,0,0,.18);white-space:nowrap}
+.temp{font-size:11.5rem;font-weight:200;line-height:.86;letter-spacing:-.6rem;text-shadow:0 .4rem 3rem rgba(0,0,0,.18);white-space:nowrap}
 .temp .deg{font-weight:200;color:var(--warm);letter-spacing:0;margin-left:.4rem}
 .desc{font-size:2.8rem;font-weight:500;margin-top:.8rem;letter-spacing:-.02em}
 .feels{font-size:1.75rem;color:var(--muted);margin-top:.2rem}
 .tip{display:inline-flex;align-items:center;gap:.9rem;margin-top:1.4rem;padding:.8rem 1.6rem .8rem 1.2rem;border-radius:99rem;
   background:linear-gradient(90deg,rgba(255,200,87,.28),rgba(255,126,182,.18));border:1px solid rgba(255,220,150,.35);font-size:1.55rem;font-weight:500;white-space:nowrap}
 .tip::before{content:"";width:1rem;height:1rem;border-radius:50%;background:var(--warm);box-shadow:0 0 1rem var(--warm)}
-.hero-bot{display:grid;grid-template-columns:1.15fr .85fr 1.2fr;grid-template-rows:1fr 1fr;gap:1rem;height:15.8rem}
+.hero-bot{display:grid;grid-template-columns:1.05fr .7fr 1.5fr;grid-template-rows:1fr 1fr;gap:1rem;height:20rem}
 .tile{border-radius:1.7rem;padding:.9rem 1.3rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);display:flex;flex-direction:column;justify-content:center}
 .tile .l{font-size:1.15rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .tile .v{font-size:2.6rem;font-weight:500;line-height:1.15;font-variant-numeric:tabular-nums}
@@ -84,18 +84,16 @@ body.dim .dimmer{opacity:.38}
 @keyframes streak{from{transform:translateX(-7rem)}to{transform:translateX(34rem)}}
 
 /* bus */
-.windt{grid-column:1;grid-row:1/3}
-.hero-bot>.tile:nth-child(2){grid-column:2;grid-row:1}
-.hero-bot>.tile:nth-child(3){grid-column:2;grid-row:2}
-.bus{grid-column:3;grid-row:1/3;justify-content:flex-start;gap:.15rem;padding:.8rem 1.1rem .6rem}
-.bus .bstop{font-size:1.35rem;color:var(--muted);margin-bottom:.35rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brow{display:flex;align-items:center;gap:.7rem;font-size:2rem;font-weight:600;padding:.32rem 0;border-top:1px solid rgba(255,255,255,.1);font-variant-numeric:tabular-nums}
-.bn{min-width:3rem;text-align:center;padding:.05rem .5rem;border-radius:.7rem;background:var(--warm);color:#1a1a2e;font-size:1.6rem;font-weight:700}
-.bt{margin-left:auto;font-size:1.25rem;color:var(--muted);font-weight:400;text-align:right;line-height:1.1}
+.bus{grid-column:3;grid-row:1/3;justify-content:flex-start;gap:0;padding:1rem 1.3rem .6rem;background:rgba(255,255,255,.12)}
+.bus .l{font-size:1.4rem;color:#fff;font-weight:600}
+.bus .bstop{font-size:1.35rem;color:var(--muted);margin:.1rem 0 .5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow{display:flex;align-items:center;gap:.9rem;font-size:3rem;font-weight:600;padding:.55rem 0;border-top:1px solid rgba(255,255,255,.14);font-variant-numeric:tabular-nums;flex:1}
+.bn{min-width:4.4rem;text-align:center;padding:.1rem .6rem;border-radius:.9rem;background:var(--warm);color:#1a1a2e;font-size:2.4rem;font-weight:700}
+.bt{margin-left:auto;font-size:1.9rem;color:var(--muted);font-weight:500;text-align:right;line-height:1.1}
 .bt.late{color:#FF9A9A}
-.brow.soon>span:nth-child(2){color:var(--warm)}
 .brow.go>span:nth-child(2){color:#5EE6A0;animation:breathe 1.2s ease-in-out infinite}
-.bmsg{font-size:1.4rem;color:var(--muted);padding-top:.6rem}
+.bmsg{font-size:1.8rem;color:var(--muted);padding-top:.8rem}
+#busList{display:flex;flex-direction:column;flex:1;min-height:0}
 .sunv{font-size:2rem!important;line-height:1.25!important}
 .sunv small{font-size:1.2rem;color:var(--muted)}
 
@@ -139,7 +137,9 @@ body.dim .dimmer{opacity:.38}
 .curve{position:absolute;left:0;top:6.2rem;width:100%;height:6.4rem;z-index:0;pointer-events:none;overflow:visible}
 .dgrid{flex:1;display:grid;grid-template-columns:repeat(7,1fr);min-height:0}
 .dc{display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:.3rem 0 .2rem;border-radius:1.5rem}
+.dc{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s}
 .dc.today{background:rgba(255,255,255,.11)}
+.dc.sel{background:rgba(255,255,255,.26)!important;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)}
 .dn{font-size:1.45rem;font-weight:500}
 .di{width:3.8rem;height:3.8rem}
 .dmax{font-size:1.9rem;font-weight:600}
@@ -328,23 +328,23 @@ body.dim .dimmer{opacity:.38}
           <div class="s"><svg id="dirArrow" viewBox="0 0 20 20"><path d="M10 1.5 L16 17 L10 13.2 L4 17 Z" fill="#7FDBFF"/></svg><span id="nDir">--</span></div>
         </div>
       </div>
-      <div class="tile"><div class="l">Rain · 12 h</div><div class="v"><span id="n12">--</span><small> mm</small></div></div>
+      <div class="tile"><div class="l">Rain · 12 h</div><div class="v"><span id="n12">--</span></div></div>
       <div class="tile"><div class="l">Sun</div><div class="v sunv"><small>↑</small> <span id="sRise">--</span><br><small>↓</small> <span id="sSet">--</span></div></div>
-      <div class="tile bus" id="bus"><div class="l">Leave for bus</div><div class="bstop" id="busStop">to Sandnes</div><div id="busList"><div class="bmsg">Loading…</div></div></div>
+      <div class="tile bus" id="bus"><div class="l">Bus to Sandnes</div><div class="bstop" id="busStop">Kleivabergsbakken</div><div id="busList"><div class="bmsg">Loading…</div></div></div>
     </div>
   </section>
 
   <!-- MAP -->
   <section class="card mapcard">
     <div id="map"></div>
-    <div class="mtag"><span class="lv"></span>Rain radar <b id="radarTime">…</b></div>
+    <div class="mtag"><span class="lv"></span>Rain <b id="radarTime">…</b></div>
     <div class="legend">Light <i></i> Heavy</div>
     <div class="tl" id="tl"></div>
   </section>
 
   <div class="bottom">
-    <section class="card strip"><div class="ct">Next 12 hours</div><div class="hgrid" id="hours"></div></section>
-    <section class="card strip"><div class="ct">7 days</div><div class="dgrid" id="days"></div></section>
+    <section class="card strip"><div class="ct" id="hTitle">Next 12 hours</div><div class="hgrid" id="hours"></div></section>
+    <section class="card strip"><div class="ct">7 days · tap a day</div><div class="dgrid" id="days"></div></section>
   </div>
 </div>
 <div class="dimmer"></div>
@@ -530,8 +530,8 @@ body.dim .dimmer{opacity:.38}
     }
     return d;
   }
-  function renderHourly(H,s){
-    const N=12, idx=[...Array(N)].map((_,k)=>Math.min(s+k,H.time.length-1));
+  function renderHourly(H,idx,live){
+    const N=idx.length;
     const temps=idx.map(i=>H.temperature_2m[i]), mn=Math.min(...temps), mx=Math.max(...temps), rng=Math.max(2,mx-mn);
     const ys=temps.map(t=>38+(1-(t-mn)/rng)*54);
     const maxP=Math.max(1,...idx.map(i=>H.precipitation[i]||0));
@@ -543,14 +543,30 @@ body.dim .dimmer{opacity:.38}
       <path d="${d} L${N*100},100 L0,100 Z" fill="url(#ca)"/>
       <path d="${d}" fill="none" stroke="url(#cg)" stroke-width="3" vector-effect="non-scaling-stroke" stroke-linecap="round"/></svg>`;
     idx.forEach((i,k)=>{
-      const p=H.precipitation[i]||0, y=ys[k].toFixed(1), bh=p>0?Math.max(.3,2*p/maxP):.3;
-      h+=`<div class="hc${k?'':' now'}"><div class="ht">${k?H.time[i].slice(11,16):'Now'}</div>
+      const p=live?(H.precipitation[i]||0):((H.precipitation[i]||0)+(H.precipitation[i+1]||0)), y=ys[k].toFixed(1), bh=p>0?Math.max(.3,2*p/maxP):.3;
+      h+=`<div class="hc${live&&!k?' now':''}"><div class="ht">${live&&!k?'Now':H.time[i].slice(11,16)}</div>
         <div class="hi">${ico(H.weather_code[i],!H.is_day[i])}</div>
         <div class="hs"><b class="tlab" style="top:${y}%">${Math.round(H.temperature_2m[i])}°</b><i class="hd" style="top:${y}%"></i></div>
         <div class="hr"><span class="bar" style="height:${bh.toFixed(2)}rem;opacity:${p>0?.95:.18}"></span><em>${p>=0.1?f1(p):''}</em></div></div>`;
     });
     $('hours').innerHTML=h;
   }
+  let view=null, selDay=0, selTimer=null;
+  const DOW=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function drawHours(){
+    if(!view) return; const {H,D,s}=view;
+    if(selDay<=0){ $('hTitle').textContent='Next 12 hours';
+      renderHourly(H,[...Array(12)].map((_,k)=>Math.min(s+k,H.time.length-1)),true); return; }
+    const st=H.time.findIndex(t=>t.startsWith(D.time[selDay])); const base=st<0?selDay*24:st, dt=new Date(D.time[selDay]+'T12:00:00');
+    $('hTitle').textContent=DOW[dt.getDay()]+' '+dt.getDate()+' '+MON[dt.getMonth()]+' · every 2 hours';
+    renderHourly(H,[...Array(12)].map((_,k)=>Math.min(base+k*2,H.time.length-2)),false);
+  }
+  function pickDay(d){
+    selDay=(d===selDay)?0:d; clearTimeout(selTimer);
+    if(selDay>0) selTimer=setTimeout(()=>{selDay=0; drawHours(); renderDaily(view.D);},60000);   // back to live after 1 min
+    drawHours(); renderDaily(view.D);
+  }
+  $('days').addEventListener('click',e=>{ const c=e.target.closest('.dc'); if(c&&view) pickDay(+c.dataset.d); });
   function renderDaily(D){
     const N=Math.min(7,D.time.length), names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const lo=Math.min(...D.temperature_2m_min.slice(0,N)), hi=Math.max(...D.temperature_2m_max.slice(0,N)), span=Math.max(1,hi-lo);
@@ -559,10 +575,10 @@ body.dim .dimmer{opacity:.38}
       const mx=D.temperature_2m_max[d], mn=D.temperature_2m_min[d], p=D.precipitation_sum[d]||0;
       const top=((hi-mx)/span*100).toFixed(1), bot=((mn-lo)/span*100).toFixed(1);
       const dn=d===0?'Today':names[new Date(D.time[d]+'T12:00:00').getDay()];
-      h+=`<div class="dc${d?'':' today'}"><div class="dn">${dn}</div><div class="di">${ico(D.weather_code[d],false)}</div>
+      h+=`<div class="dc${d?'':' today'}${d===selDay?' sel':''}" data-d="${d}"><div class="dn">${dn}</div><div class="di">${ico(D.weather_code[d],false)}</div>
         <div class="dmax">${Math.round(mx)}°</div>
         <div class="dtrack"><span style="top:${top}%;bottom:${bot}%;background:linear-gradient(to top,${tcol(mn)},${tcol(mx)})"></span></div>
-        <div class="dmin">${Math.round(mn)}°</div><div class="dp">${p>=0.1?f1(p)+' mm':''}</div></div>`;
+        <div class="dmin">${Math.round(mn)}°</div><div class="dp">${p>=0.1?f1(p):''}</div></div>`;
     }
     $('days').innerHTML=h;
   }
@@ -594,7 +610,7 @@ body.dim .dimmer{opacity:.38}
     let r12=0; for(let k=s;k<s+12&&k<H.time.length;k++) r12+=H.precipitation[k]||0;
     $('n12').textContent=f1(r12);
     $('sRise').textContent=D.sunrise[0].slice(11,16); $('sSet').textContent=D.sunset[0].slice(11,16);
-    renderHourly(H,s); renderDaily(D);
+    view={H,D,s}; drawHours(); renderDaily(D);
     const rs=rainSummary(j); $('pillTxt').textContent=rs.text; $('pill').classList.toggle('wet',rs.wet);
     const n=new Date(); $('status').textContent=(DEMO?'Demo data · ':'Updated ')+pad(n.getHours())+':'+pad(n.getMinutes());
   }
@@ -634,24 +650,23 @@ body.dim .dimmer{opacity:.38}
   const BUS_STOP='NSR:StopPlace:26271', BUS_WORDS=['sandnes'];   // stop = Kleivabergsbakken, ~200 m from home
   let busCalls=null, busAll=false;
   const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const WALK_MIN=6;   // stroller walk to Kleivabergsbakken (~210 m) incl. getting out the door — change if needed
   function renderBus(){
     const el=$('busList'); if(!busCalls){ return; }
     const now=Date.now(), mins=c=>(new Date(c.expectedDepartureTime)-now)/60000;
-    let list=busCalls.filter(c=>!c.cancellation && mins(c)>=WALK_MIN-0.5);   // skip buses you can no longer reach
+    let list=busCalls.filter(c=>!c.cancellation && mins(c)>=-0.5);
     const to=list.filter(c=>BUS_WORDS.some(w=>(c.destinationDisplay&&c.destinationDisplay.frontText||'').toLowerCase().includes(w)));
     busAll = to.length===0 && list.length>0;
-    $('busStop').textContent = (busAll ? 'all directions' : 'to Sandnes')+' · '+WALK_MIN+' min walk';
+    $('busStop').textContent = busAll ? 'Kleivabergsbakken · all directions' : 'Kleivabergsbakken';
     list=(busAll?list:to).slice(0,3);
     if(!list.length){ el.innerHTML='<div class="bmsg">No buses soon</div>'; return; }
     el.innerHTML=list.map(c=>{
       const exp=new Date(c.expectedDepartureTime), aim=new Date(c.aimedDepartureTime);
-      const leave=Math.floor(mins(c)-WALK_MIN), delay=Math.round((exp-aim)/60000), late=c.realtime&&delay>=2;
-      const go=leave<=0, soon=leave<=2;
-      const when=go?'Go now':leave<=30?'in '+leave+' min':pad(new Date(exp-WALK_MIN*60000).getHours())+':'+pad(new Date(exp-WALK_MIN*60000).getMinutes());
+      const m=Math.round(mins(c)), delay=Math.round((exp-aim)/60000), late=c.realtime&&delay>=2;
+      const clock=pad(exp.getHours())+':'+pad(exp.getMinutes());
+      const when=m<=0?'Now':m<=30?m+' min':clock;
       const dest=(c.destinationDisplay&&c.destinationDisplay.frontText)||'';
       const line=(c.serviceJourney&&c.serviceJourney.line&&c.serviceJourney.line.publicCode)||'?';
-      return `<div class="brow${go?' go':soon?' soon':''}"><span class="bn">${esc(line)}</span><span>${when}</span><span class="bt${late?' late':''}">${late?'+'+delay+' min':'bus '+pad(exp.getHours())+':'+pad(exp.getMinutes())}${busAll?'<br>'+esc(dest):''}</span></div>`;
+      return `<div class="brow${m<=1?' go':''}"><span class="bn">${esc(line)}</span><span>${when}</span><span class="bt${late?' late':''}">${late?'+'+delay+' min':m>30?'':clock}${busAll?'<br>'+esc(dest):''}</span></div>`;
     }).join('');
   }
   function loadBus(){
@@ -673,34 +688,72 @@ body.dim .dimmer{opacity:.38}
   try{
     map=L.map('map',{zoomControl:false,attributionControl:true,minZoom:5,maxZoom:9}).setView([LAT+.15,LON-.55],7);
     map.createPane('labels'); map.getPane('labels').style.zIndex=650; map.getPane('labels').style.pointerEvents='none';
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:9,maxZoom:9,attribution:'Map © Esri, HERE, Garmin, OpenStreetMap contributors · Radar © RainViewer'}).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:9,maxZoom:9,attribution:'Map © Esri, HERE, Garmin, OpenStreetMap contributors · Radar © RainViewer · Forecast © Open-Meteo'}).addTo(map);
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',{maxNativeZoom:9,maxZoom:9,pane:'labels'}).addTo(map);
     L.marker([LAT,LON],{icon:L.divIcon({className:'home',html:'<span></span>',iconSize:[18,18]}),interactive:false}).addTo(map);
   }catch(e){}
-  let frames=[], layers={}, curF=0, host='', timer=null, nowIdx=0;
-  function layerFor(i){
-    if(!layers[i]){ layers[i]=L.tileLayer(host+frames[i].path+'/256/{z}/{x}/{y}/2/1_1.png',{opacity:0,maxNativeZoom:7,maxZoom:9,zIndex:10}); layers[i].addTo(map); }
-    return layers[i];
+  // Current radar (latest frame only) + forecast precipitation for the next 6 hours (Open-Meteo model grid).
+  const GRID={lon0:1.2,dlon:.8,nx:11,lat0:57.6,dlat:.45,ny:7};
+  const GB={w:GRID.lon0,e:GRID.lon0+GRID.dlon*(GRID.nx-1),s:GRID.lat0,n:GRID.lat0+GRID.dlat*(GRID.ny-1)};
+  let frames=[], fi=0, tmr=null, radarLayer=null, extra=[], model=null, modelAt=0;
+  const mer=l=>Math.log(Math.tan(Math.PI/4+l*Math.PI/360)), imer=y=>(2*Math.atan(Math.exp(y))-Math.PI/2)*180/Math.PI;
+  const STOPS=[[0.1,[167,227,255,.30]],[0.5,[60,150,255,.60]],[1.5,[21,67,201,.78]],[4,[255,212,0,.85]],[9,[255,59,59,.9]]];
+  function pcol(v){
+    if(v<0.03) return [0,0,0,0];
+    if(v<0.1) return [167,227,255,.30*(v-.03)/.07];
+    for(let i=1;i<STOPS.length;i++) if(v<=STOPS[i][0]){ const [a,ca]=STOPS[i-1],[b,cb]=STOPS[i],k=(v-a)/(b-a); return ca.map((x,j)=>x+(cb[j]-x)*k); }
+    return STOPS[STOPS.length-1][1];
+  }
+  function drawGrid(g){        // g[row][col] mm/h -> smooth PNG overlay
+    const W=200,H=150, cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+    const ctx=cv.getContext('2d'), im=ctx.createImageData(W,H), yN=mer(GB.n), yS=mer(GB.s);
+    for(let y=0;y<H;y++){
+      const lat=imer(yN+(yS-yN)*(y+.5)/H), fr=(lat-GRID.lat0)/GRID.dlat, r0=Math.max(0,Math.min(GRID.ny-2,Math.floor(fr))), ty=Math.max(0,Math.min(1,fr-r0));
+      for(let x=0;x<W;x++){
+        const lon=GB.w+(GB.e-GB.w)*(x+.5)/W, fc=(lon-GRID.lon0)/GRID.dlon, c0=Math.max(0,Math.min(GRID.nx-2,Math.floor(fc))), tx=Math.max(0,Math.min(1,fc-c0));
+        const v=(g[r0][c0]*(1-tx)+g[r0][c0+1]*tx)*(1-ty)+(g[r0+1][c0]*(1-tx)+g[r0+1][c0+1]*tx)*ty;
+        const c=pcol(v), o=(y*W+x)*4; im.data[o]=c[0]; im.data[o+1]=c[1]; im.data[o+2]=c[2]; im.data[o+3]=Math.round(c[3]*255);
+      }
+    }
+    ctx.putImageData(im,0,0); return cv.toDataURL('image/png');
+  }
+  function loadModel(){
+    if(model && Date.now()-modelAt<50*60000) return Promise.resolve(model);
+    const lats=[],lons=[]; for(let r=0;r<GRID.ny;r++) for(let c=0;c<GRID.nx;c++){ lats.push((GRID.lat0+r*GRID.dlat).toFixed(2)); lons.push((GRID.lon0+c*GRID.dlon).toFixed(2)); }
+    if(DEMO){ const times=[...Array(8)].map((_,k)=>{const d=new Date(Math.floor(Date.now()/36e5)*36e5+k*36e5); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':00';});
+      const grids=times.map((_,k)=>{const g=[]; for(let r=0;r<GRID.ny;r++){g.push([]); for(let c=0;c<GRID.nx;c++) g[r].push(Math.max(0,3.2*Math.sin((c+k*.9)/1.9)*Math.cos((r-k*.4)/1.4)-.5));} return g;});
+      model={times,grids}; modelAt=Date.now(); return Promise.resolve(model); }
+    return getJ(`https://api.open-meteo.com/v1/forecast?latitude=${lats.join(',')}&longitude=${lons.join(',')}&hourly=precipitation&forecast_hours=9&timezone=Europe%2FOslo`)
+      .then(j=>{ const arr=Array.isArray(j)?j:[j], times=arr[0].hourly.time, grids=times.map((_,k)=>{const g=[]; for(let r=0;r<GRID.ny;r++){g.push([]); for(let c=0;c<GRID.nx;c++) g[r].push(arr[r*GRID.nx+c].hourly.precipitation[k]||0);} return g;});
+        model={times,grids}; modelAt=Date.now(); return model; });
   }
   function showF(i){
-    for(const k in layers) layers[k].setOpacity(0);
-    layerFor(i).setOpacity(.8); curF=i;
-    const f=frames[i], d=new Date(f.time*1000), mins=Math.round((Date.now()/1000-f.time)/60);
-    $('radarTime').textContent=pad(d.getHours())+':'+pad(d.getMinutes())+(i>nowIdx?' · forecast':i===nowIdx?' · latest':` · ${mins} min ago`);
+    frames.forEach((f,k)=>f.layer.setOpacity(k===i?f.op:0)); fi=i;
+    $('radarTime').textContent=frames[i].label;
     [...$('tl').children].forEach((el,k)=>el.classList.toggle('on',k===i));
+  }
+  function loop(){
+    clearTimeout(tmr); if(frames.length<2) return;
+    tmr=setTimeout(()=>{ showF((fi+1)%frames.length); loop(); }, fi===frames.length-1?1800:(fi===0?2200:1100));
+  }
+  function build(radar,mdl){
+    if(radarLayer){ map.removeLayer(radarLayer); radarLayer=null; } extra.forEach(l=>map.removeLayer(l)); extra=[]; frames=[];
+    const now=Date.now(), pt=t=>new Date(t);
+    if(radar){ radarLayer=L.tileLayer(radar.host+radar.f.path+'/256/{z}/{x}/{y}/2/1_1.png',{opacity:0,maxNativeZoom:7,maxZoom:9,zIndex:10}).addTo(map); const d=new Date(radar.f.time*1000);
+      frames.push({layer:radarLayer,op:.8,label:'Now · radar '+pad(d.getHours())+':'+pad(d.getMinutes())}); }
+    if(mdl){
+      let ks=mdl.times.map((t,k)=>k).filter(k=>pt(mdl.times[k])>now-30*60000 ? (pt(mdl.times[k])>now || (!radar && now-pt(mdl.times[k])<36e5)) : false).slice(0,radar?6:7);
+      ks.forEach(k=>{ const t=pt(mdl.times[k]), h=Math.round((t-now)/36e5), ov=L.imageOverlay(drawGrid(mdl.grids[k]),[[GB.s,GB.w],[GB.n,GB.e]],{opacity:0,zIndex:20,interactive:false}).addTo(map);
+        extra.push(ov); frames.push({layer:ov,op:.9,fc:1,label:(h<=0?'Now':'Forecast +'+h+' h')+' · '+pad(t.getHours())+':00'}); });
+    }
+    if(!frames.length){ $('radarTime').textContent='no data'; return; }
+    $('tl').innerHTML=frames.map((f,i)=>`<i class="${f.fc?'fc':''}"></i>`).join('');
+    showF(0); loop();
   }
   function loadRadar(){
     if(!map) return;
-    getJ('https://api.rainviewer.com/public/weather-maps.json').then(j=>{
-      host=j.host; for(const k in layers) map.removeLayer(layers[k]); layers={};
-      const past=(j.radar&&j.radar.past||[]).slice(-10), nc=(j.radar&&j.radar.nowcast||[]).slice(0,3);
-      frames=past.concat(nc); nowIdx=past.length-1;
-      if(!frames.length){ $('radarTime').textContent='no data'; return; }
-      $('tl').innerHTML=frames.map((f,i)=>`<i class="${i>nowIdx?'fc':''}"></i>`).join('');
-      frames.forEach((_,i)=>layerFor(i));
-      clearInterval(timer); let i=0; showF(0);
-      timer=setInterval(()=>{ i++; if(i>=frames.length+3) i=0; showF(Math.min(i,frames.length-1)); },650); // short pause on the last frame
-    }).catch(()=>{ $('radarTime').textContent='offline'; });
+    const rp=DEMO?Promise.resolve(null):getJ('https://api.rainviewer.com/public/weather-maps.json').then(j=>{ const past=(j.radar&&j.radar.past)||[]; return past.length?{host:j.host,f:past[past.length-1]}:null; }).catch(()=>null);
+    Promise.all([rp,loadModel().catch(()=>model)]).then(r=>build(r[0],r[1]));
   }
 
   function refresh(){ loadWeather(); loadRadar(); }
