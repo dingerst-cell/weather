@@ -67,21 +67,37 @@ body.dim .dimmer{opacity:.38}
 .tip{display:inline-flex;align-items:center;gap:.9rem;margin-top:1.4rem;padding:.8rem 1.6rem .8rem 1.2rem;border-radius:99rem;
   background:linear-gradient(90deg,rgba(255,200,87,.28),rgba(255,126,182,.18));border:1px solid rgba(255,220,150,.35);font-size:1.55rem;font-weight:500;white-space:nowrap}
 .tip::before{content:"";width:1rem;height:1rem;border-radius:50%;background:var(--warm);box-shadow:0 0 1rem var(--warm)}
-.hero-bot{display:grid;grid-template-columns:1.4fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:1rem;height:15.8rem}
+.hero-bot{display:grid;grid-template-columns:1.15fr .85fr 1.2fr;grid-template-rows:1fr 1fr;gap:1rem;height:15.8rem}
 .tile{border-radius:1.7rem;padding:.9rem 1.3rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);display:flex;flex-direction:column;justify-content:center}
 .tile .l{font-size:1.15rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:500}
 .tile .v{font-size:2.6rem;font-weight:500;line-height:1.15;font-variant-numeric:tabular-nums}
 .tile .v small{font-size:1.4rem;color:var(--muted);font-weight:400}
-.windt{grid-row:span 2;display:grid;grid-template-columns:9.5rem 1fr;align-items:center;gap:.6rem;position:relative;overflow:hidden;padding:.6rem 1.2rem .6rem .6rem}
-#mill{width:9.5rem;height:14rem;overflow:visible;position:relative;z-index:1}
+.windt{grid-row:span 2;display:grid;grid-template-columns:8rem 1fr;align-items:center;gap:.6rem;position:relative;overflow:hidden;padding:.6rem 1.2rem .6rem .6rem}
+#mill{width:8rem;height:14rem;overflow:visible;position:relative;z-index:1}
 .wtxt{position:relative;z-index:1}
-.wtxt .v{font-size:3.4rem}
+.wtxt .v{font-size:3rem}
 .wtxt .s{font-size:1.4rem;color:var(--muted);margin-top:.2rem;display:flex;align-items:center;gap:.5rem}
 .wtxt .s b{color:#fff;font-weight:500}
 #dirArrow{width:1.7rem;height:1.7rem;transition:transform 1s}
 .streak{position:absolute;height:2px;width:5rem;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
   animation:streak var(--sd,3s) linear infinite;opacity:var(--so,.3);z-index:0}
 @keyframes streak{from{transform:translateX(-7rem)}to{transform:translateX(34rem)}}
+
+/* bus */
+.windt{grid-column:1;grid-row:1/3}
+.hero-bot>.tile:nth-child(2){grid-column:2;grid-row:1}
+.hero-bot>.tile:nth-child(3){grid-column:2;grid-row:2}
+.bus{grid-column:3;grid-row:1/3;justify-content:flex-start;gap:.15rem;padding:.8rem 1.1rem .6rem}
+.bus .bstop{font-size:1.35rem;color:var(--muted);margin-bottom:.35rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow{display:flex;align-items:center;gap:.7rem;font-size:2rem;font-weight:600;padding:.32rem 0;border-top:1px solid rgba(255,255,255,.1);font-variant-numeric:tabular-nums}
+.bn{min-width:3rem;text-align:center;padding:.05rem .5rem;border-radius:.7rem;background:var(--warm);color:#1a1a2e;font-size:1.6rem;font-weight:700}
+.bt{margin-left:auto;font-size:1.25rem;color:var(--muted);font-weight:400;text-align:right;line-height:1.1}
+.bt.late{color:#FF9A9A}
+.brow.soon>span:nth-child(2){color:var(--warm)}
+.brow.go>span:nth-child(2){color:#5EE6A0;animation:breathe 1.2s ease-in-out infinite}
+.bmsg{font-size:1.4rem;color:var(--muted);padding-top:.6rem}
+.sunv{font-size:2rem!important;line-height:1.25!important}
+.sunv small{font-size:1.2rem;color:var(--muted)}
 
 /* map */
 .mapcard{background:#0b1426}
@@ -313,9 +329,8 @@ body.dim .dimmer{opacity:.38}
         </div>
       </div>
       <div class="tile"><div class="l">Rain · 12 h</div><div class="v"><span id="n12">--</span><small> mm</small></div></div>
-      <div class="tile"><div class="l">Humidity</div><div class="v"><span id="nHum">--</span><small> %</small></div></div>
-      <div class="tile"><div class="l">Sunrise</div><div class="v" id="sRise">--</div></div>
-      <div class="tile"><div class="l">Sunset</div><div class="v" id="sSet">--</div></div>
+      <div class="tile"><div class="l">Sun</div><div class="v sunv"><small>↑</small> <span id="sRise">--</span><br><small>↓</small> <span id="sSet">--</span></div></div>
+      <div class="tile bus" id="bus"><div class="l">Leave for bus</div><div class="bstop" id="busStop">to Sandnes</div><div id="busList"><div class="bmsg">Loading…</div></div></div>
     </div>
   </section>
 
@@ -358,7 +373,7 @@ body.dim .dimmer{opacity:.38}
   document.addEventListener('fullscreenchange',()=>setTimeout(fit,300));
   document.addEventListener('webkitfullscreenchange',()=>setTimeout(fit,300));
   // ===== Location: Kleivabergsbakken 6, 4326 Sandnes (approx.) – adjust if the map pin is off =====
-  const LAT = 58.853, LON = 5.732;
+  const LAT = 58.841075, LON = 5.776296;   // Kleivabergsbakken 6 (geocoded)
   const REFRESH_MIN = 10;
 
   const $ = id => document.getElementById(id);
@@ -569,13 +584,12 @@ body.dim .dimmer{opacity:.38}
     if(di<0) applyLook(live);
     $('nTemp').textContent=Math.round(c.temperature_2m);
     $('nDesc').textContent=WTXT[c.weather_code]||'—';
-    $('nFeels').textContent=`Feels like ${Math.round(c.apparent_temperature)}°  ·  H ${Math.round(D.temperature_2m_max[0])}°  L ${Math.round(D.temperature_2m_min[0])}°`;
+    $('nFeels').textContent=`Feels ${Math.round(c.apparent_temperature)}°  ·  H ${Math.round(D.temperature_2m_max[0])}°  L ${Math.round(D.temperature_2m_min[0])}°  ·  ${Math.round(c.relative_humidity_2m)}% humidity`;
     $('nWind').textContent=f1(c.wind_speed_10m);
     $('nGust').textContent=Math.round(c.wind_gusts_10m);
     $('nBeau').textContent=beaufort(c.wind_speed_10m);
     $('nDir').textContent='from '+compass(c.wind_direction_10m);
     $('dirArrow').style.transform=`rotate(${c.wind_direction_10m+180}deg)`;
-    $('nHum').textContent=Math.round(c.relative_humidity_2m);
     let s=H.time.findIndex(t=>t.slice(0,13)===c.time.slice(0,13)); if(s<0) s=0;
     let r12=0; for(let k=s;k<s+12&&k<H.time.length;k++) r12+=H.precipitation[k]||0;
     $('n12').textContent=f1(r12);
@@ -615,6 +629,44 @@ body.dim .dimmer{opacity:.38}
     return {current:{time:iso(new Date(Math.floor(now/9e5)*9e5)),temperature_2m:H.temperature_2m[ci],apparent_temperature:H.temperature_2m[ci]-3,relative_humidity_2m:84,
       precipitation:H.precipitation[ci],weather_code:63,is_day:1,wind_speed_10m:7.4,wind_gusts_10m:12.6,wind_direction_10m:225},hourly:H,daily:D};
   }
+
+  // ---------- bus: next departures to Sandnes (Entur open API, no key) ----------
+  const BUS_STOP='NSR:StopPlace:26271', BUS_WORDS=['sandnes'];   // stop = Kleivabergsbakken, ~200 m from home
+  let busCalls=null, busAll=false;
+  const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const WALK_MIN=6;   // stroller walk to Kleivabergsbakken (~210 m) incl. getting out the door — change if needed
+  function renderBus(){
+    const el=$('busList'); if(!busCalls){ return; }
+    const now=Date.now(), mins=c=>(new Date(c.expectedDepartureTime)-now)/60000;
+    let list=busCalls.filter(c=>!c.cancellation && mins(c)>=WALK_MIN-0.5);   // skip buses you can no longer reach
+    const to=list.filter(c=>BUS_WORDS.some(w=>(c.destinationDisplay&&c.destinationDisplay.frontText||'').toLowerCase().includes(w)));
+    busAll = to.length===0 && list.length>0;
+    $('busStop').textContent = (busAll ? 'all directions' : 'to Sandnes')+' · '+WALK_MIN+' min walk';
+    list=(busAll?list:to).slice(0,3);
+    if(!list.length){ el.innerHTML='<div class="bmsg">No buses soon</div>'; return; }
+    el.innerHTML=list.map(c=>{
+      const exp=new Date(c.expectedDepartureTime), aim=new Date(c.aimedDepartureTime);
+      const leave=Math.floor(mins(c)-WALK_MIN), delay=Math.round((exp-aim)/60000), late=c.realtime&&delay>=2;
+      const go=leave<=0, soon=leave<=2;
+      const when=go?'Go now':leave<=30?'in '+leave+' min':pad(new Date(exp-WALK_MIN*60000).getHours())+':'+pad(new Date(exp-WALK_MIN*60000).getMinutes());
+      const dest=(c.destinationDisplay&&c.destinationDisplay.frontText)||'';
+      const line=(c.serviceJourney&&c.serviceJourney.line&&c.serviceJourney.line.publicCode)||'?';
+      return `<div class="brow${go?' go':soon?' soon':''}"><span class="bn">${esc(line)}</span><span>${when}</span><span class="bt${late?' late':''}">${late?'+'+delay+' min':'bus '+pad(exp.getHours())+':'+pad(exp.getMinutes())}${busAll?'<br>'+esc(dest):''}</span></div>`;
+    }).join('');
+  }
+  function loadBus(){
+    if(DEMO){ const t=n=>new Date(Date.now()+n*60000).toISOString();
+      busCalls=[{expectedDepartureTime:t(4),aimedDepartureTime:t(4),realtime:true,destinationDisplay:{frontText:'Sandnes sentrum'},serviceJourney:{line:{publicCode:'9'}}},
+        {expectedDepartureTime:t(19),aimedDepartureTime:t(17),realtime:true,destinationDisplay:{frontText:'Sandnes'},serviceJourney:{line:{publicCode:'9'}}},
+        {expectedDepartureTime:t(34),aimedDepartureTime:t(34),realtime:false,destinationDisplay:{frontText:'Sandnes sentrum'},serviceJourney:{line:{publicCode:'9'}}}];
+      renderBus(); return; }
+    const q=`{stopPlace(id:"${BUS_STOP}"){estimatedCalls(numberOfDepartures:40,timeRange:14400){expectedDepartureTime aimedDepartureTime realtime cancellation destinationDisplay{frontText} serviceJourney{line{publicCode}}}}}`;
+    fetch('https://api.entur.io/journey-planner/v3/graphql',{method:'POST',headers:{'Content-Type':'application/json','ET-Client-Name':'dingerst-weather-dashboard'},body:JSON.stringify({query:q})})
+      .then(r=>{if(!r.ok) throw new Error(r.status); return r.json();})
+      .then(j=>{ busCalls=j.data.stopPlace.estimatedCalls; renderBus(); })
+      .catch(()=>{ if(!busCalls) $('busList').innerHTML='<div class="bmsg">Bus times offline</div>'; });
+  }
+  loadBus(); setInterval(loadBus,60000); setInterval(renderBus,15000);
 
   // ---------- map + radar (RainViewer) ----------
   let map=null;
