@@ -382,8 +382,11 @@ body.dim .dimmer{opacity:.38}
   }
   document.addEventListener('fullscreenchange',()=>setTimeout(fit,300));
   document.addEventListener('webkitfullscreenchange',()=>setTimeout(fit,300));
-  // ===== Location: Kleivabergsbakken 6, 4326 Sandnes (approx.) – adjust if the map pin is off =====
-  const LAT = 58.841075, LON = 5.776296;   // Kleivabergsbakken 6 (geocoded)
+  // ===== Location: Sandnes area (rounded to ~1 km on purpose) =====
+  const LAT = 58.84, LON = 5.78;
+  // ===== Temperature correction for our spot (higher up / colder than the model grid) =====
+  // Applied to all temperatures. Tune here, or test with ?adj=-3 in the address.
+  const TEMP_ADJ = parseFloat((location.search.match(/adj=(-?[\d.]+)/)||[])[1]) || -2;
   const REFRESH_MIN = 10;
 
   const $ = id => document.getElementById(id);
@@ -611,7 +614,15 @@ body.dim .dimmer{opacity:.38}
     const k=sl.findIndex(wet);
     return k<0 ? {wet:false,text:'Dry for the next 3 hours'} : {wet:true,text:`Rain from around ${T[i+k].slice(11,16)}`};
   }
+  function adjustTemps(j){
+    if(j.__adj||!TEMP_ADJ) return; j.__adj=1;
+    const a=v=>v==null?v:v+TEMP_ADJ;
+    j.current.temperature_2m=a(j.current.temperature_2m); j.current.apparent_temperature=a(j.current.apparent_temperature);
+    j.hourly.temperature_2m=j.hourly.temperature_2m.map(a);
+    j.daily.temperature_2m_max=j.daily.temperature_2m_max.map(a); j.daily.temperature_2m_min=j.daily.temperature_2m_min.map(a);
+  }
   function render(j){
+    adjustTemps(j);
     const c=j.current, H=j.hourly, D=j.daily;
     live={code:c.weather_code,day:!!c.is_day,t:c.temperature_2m,ws:c.wind_speed_10m,gust:c.wind_gusts_10m,hour:new Date().getHours()};
     if(di<0) applyLook(live);
@@ -664,7 +675,7 @@ body.dim .dimmer{opacity:.38}
   }
 
   // ---------- bus: next departures to Sandnes (Entur open API, no key) ----------
-  const BUS_STOP='NSR:StopPlace:26271', BUS_WORDS=['sandnes'];   // stop = Kleivabergsbakken, ~200 m from home
+  const BUS_STOP='NSR:StopPlace:26271', BUS_WORDS=['sandnes'];   // stop = Kleivabergsbakken
   let busCalls=null, busAll=false;
   const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   function renderBus(){
