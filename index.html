@@ -35,7 +35,7 @@ body.dim .dimmer{opacity:.38}
 
 /* ---------- layout (designed for 1280x800, scales anywhere) ---------- */
 .app{position:relative;z-index:1;height:var(--H);width:var(--W);display:grid;gap:1.1rem;padding:1rem 1.2rem 1.2rem;
-  grid-template-columns:36% 23% 1fr;grid-template-rows:8.8rem 1fr 24.5rem;--rm:2;--rb:3}
+  grid-template-columns:44% 22% 1fr;grid-template-rows:8.8rem 1fr 24.5rem;--rm:2;--rb:3}
 .app.has-alert{grid-template-rows:8.8rem auto 1fr 24.5rem;--rm:3;--rb:4}
 .top{grid-row:1}
 .hero{grid-column:1;grid-row:var(--rm)}.bus{grid-column:2;grid-row:var(--rm)}.mapcard{grid-column:3;grid-row:var(--rm)}
@@ -81,13 +81,15 @@ body.dim .dimmer{opacity:.38}
 .clock .t{font-size:5.4rem;font-weight:300;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
 
 /* hero */
-.hero{padding:1.2rem 1.4rem 1.4rem;display:grid;grid-template-rows:1fr auto;gap:1rem;min-height:0}
-.hero-top{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:.6rem;min-height:0}
-.figwrap{height:22rem;width:22rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero{padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;min-height:0}
+.hero-top{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;min-height:0;min-width:0}
+.hero-top .now{order:-1}
+.hero-top .figwrap{align-self:center}
+.figwrap{height:19rem;width:19rem;margin-bottom:-.5rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .now{min-width:0}
-.temp{font-size:12rem;font-weight:200;line-height:.86;letter-spacing:-.6rem;text-shadow:0 .4rem 3rem rgba(0,0,0,.18);white-space:nowrap}
-.app.has-alert .figwrap{height:16.5rem;width:16.5rem}
-.app.has-alert .temp{font-size:9.6rem}
+.temp{font-size:10rem;font-weight:200;line-height:.9;letter-spacing:-.5rem;text-shadow:0 .4rem 3rem rgba(0,0,0,.18);white-space:nowrap}
+.app.has-alert .figwrap{height:15rem;width:15rem}
+.app.has-alert .temp{font-size:8rem}
 .app.has-alert .tip{margin-top:.5rem}
 .temp .deg{font-weight:200;color:var(--warm);letter-spacing:0;margin-left:.3rem}
 .desc{font-size:2.6rem;font-weight:500;margin-top:.6rem;letter-spacing:-.02em}
@@ -96,9 +98,10 @@ body.dim .dimmer{opacity:.38}
   background:linear-gradient(90deg,rgba(255,200,87,.28),rgba(255,126,182,.18));border:1px solid rgba(255,220,150,.35);font-size:1.45rem;font-weight:500;line-height:1.25}
 .tip::before{content:"";flex:none;width:.9rem;height:.9rem;border-radius:50%;background:var(--warm);box-shadow:0 0 1rem var(--warm)}
 .tile .l{font-size:1.15rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:500}
-.windt{display:grid;grid-template-columns:10.4rem 1fr 1fr;align-items:center;gap:1rem;position:relative;overflow:hidden;
-  border-radius:1.7rem;padding:.6rem 1.4rem .6rem .8rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09);height:14.4rem}
-#mill{width:10.4rem;height:14.2rem;overflow:visible;position:relative;z-index:1}
+.windt{display:grid;grid-template-rows:1fr auto;justify-items:center;gap:.3rem;position:relative;overflow:hidden;min-height:0;
+  border-radius:1.7rem;padding:.8rem 1rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.09)}
+#mill{height:100%;width:100%;min-height:0;overflow:visible;position:relative;z-index:1}
+.wrow{position:relative;z-index:1;width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:.6rem}
 .wtxt{position:relative;z-index:1;min-width:0}
 .wtxt .v{font-size:3.5rem;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums}
 .wtxt .v small{font-size:1.4rem;color:var(--muted);font-weight:400}
@@ -277,12 +280,6 @@ body.dim .dimmer{opacity:.38}
   <ellipse cx="110" cy="221" rx="48" ry="6" fill="rgba(0,0,0,.22)"/>
 
   <g id="sway"><g id="bob">
-    <!-- speech bubble -->
-    <g id="bubble">
-      <rect id="bubR" x="4" y="38" width="56" height="30" rx="15" fill="#fff"/>
-      <path d="M40 66 L50 78 L48 64 Z" fill="#fff"/>
-      <text id="bubT" x="32" y="58.5" text-anchor="middle" font-family="Outfit,sans-serif" font-size="16" font-weight="700" fill="#2B2340">Hei!</text>
-    </g>
     <!-- umbrella (behind body) -->
     <g id="aUmb" class="acc" transform="translate(150 55) rotate(-12)">
       <line x1="0" y1="-50" x2="0" y2="100" stroke="#3a3350" stroke-width="3.5" stroke-linecap="round"/>
@@ -346,7 +343,6 @@ body.dim .dimmer{opacity:.38}
         <div class="temp"><span id="nTemp">--</span><span class="deg">°</span></div>
         <div class="desc" id="nDesc">Loading…</div>
         <div class="feels" id="nFeels">&nbsp;</div>
-        <div class="tip" id="tip">Fetching the forecast</div>
       </div>
     </div>
 
@@ -363,8 +359,10 @@ body.dim .dimmer{opacity:.38}
           </g>
           <circle cx="50" cy="44" r="4.5" fill="#E9F0FA" stroke="#9fb3d1" stroke-width="1.2"/>
         </svg>
+        <div class="wrow">
         <div class="wtxt"><div class="l" style="font-size:1.15rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)">Wind</div><div class="v"><span id="nWind">--</span><small> m/s</small></div><div class="s">Gusts <b id="nGust">--</b></div></div>
         <div class="wtxt"><div class="s"><b id="nBeau">&nbsp;</b></div><div class="s"><svg id="dirArrow" viewBox="0 0 20 20"><path d="M10 1.5 L16 17 L10 13.2 L4 17 Z" fill="#7FDBFF"/></svg><span id="nDir">--</span></div><div class="s">Humidity <b id="nHum">--</b></div></div>
+        </div>
     </div>
   </section>
 
@@ -545,18 +543,11 @@ body.dim .dimmer{opacity:.38}
     buildPrecip(rain?'rain':snow?'snow':'', storm?1.4:[65,82,75,86].includes(c)?1.3:(c>=51&&c<=57)?0.6:1);
     const theme = storm?'t-storm':rain?'t-rain':snow?'t-snow':fog?'t-fog':!s.day?'t-night':c<=1?'t-clear':c===2?'t-partly':'t-cloudy';
     document.body.className = (document.body.className.replace(/\bt-\S+/g,'').trim()+' '+theme).trim();
-    $('tip').textContent = tipFor(s);
     tgtWs=s.ws; tgtGust=s.gust||s.ws;
     const w=$('windt'); w.style.setProperty('--so', Math.min(.85,.12+s.ws/14).toFixed(2)); w.style.setProperty('--sd', Math.max(.55,5-s.ws*.3).toFixed(2)+'s');
   }
 
   document.querySelector('.clock').addEventListener('click',goFull);
-  // greetings rotate each wave: Norwegian, Filipino, German
-  const HELLO=['Hei!','Kumusta!','Mabuhay!','Hallo!','Ingat!'];
-  let hi=0;
-  function setHello(){ const w=HELLO[hi%HELLO.length], wd=Math.round(w.length*8.6+18);
-    $('bubR').setAttribute('width',wd); $('bubT').setAttribute('x',4+wd/2); $('bubT').textContent=w; hi++; }
-  setHello(); setInterval(setHello,8000);
   // tap the buddy for a little show
   const DEMOS=[
     {label:'Sunny day',code:0,day:1,t:23,ws:3,gust:5,hour:14},
