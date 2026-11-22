@@ -81,19 +81,19 @@ body.dim .dimmer{opacity:.38}
 .clock .t{font-size:5.4rem;font-weight:300;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
 
 /* hero */
-.hero{padding:1rem 1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem;min-height:0}
-.hero-top{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;min-height:0;min-width:0}
+.hero{padding:1rem 1.2rem;display:grid;grid-template-columns:1.15fr 1fr;gap:1rem;min-height:0}
+.hero-top{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:0;min-width:0}
 .hero-top .now{order:-1}
-.hero-top .figwrap{align-self:center}
-.figwrap{height:19rem;width:19rem;margin-bottom:-.5rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.hero-top .figwrap{position:absolute;right:-.4rem;bottom:-.4rem}
+.figwrap{height:11rem;width:11rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .now{min-width:0}
-.temp{font-size:10rem;font-weight:200;line-height:.9;letter-spacing:-.5rem;text-shadow:0 .4rem 3rem rgba(0,0,0,.18);white-space:nowrap}
-.app.has-alert .figwrap{height:15rem;width:15rem}
-.app.has-alert .temp{font-size:8rem}
+.temp{font-size:15rem;font-weight:200;line-height:.82;letter-spacing:-.9rem;text-shadow:0 .4rem 3rem rgba(0,0,0,.18);white-space:nowrap}
+.app.has-alert .figwrap{height:8.5rem;width:8.5rem}
+.app.has-alert .temp{font-size:11.5rem}
 .app.has-alert .tip{margin-top:.5rem}
 .temp .deg{font-weight:200;color:var(--warm);letter-spacing:0;margin-left:.3rem}
-.desc{font-size:2.6rem;font-weight:500;margin-top:.6rem;letter-spacing:-.02em}
-.feels{font-size:1.6rem;color:var(--muted);margin-top:.15rem}
+.desc{font-size:3rem;font-weight:500;margin-top:.6rem;letter-spacing:-.02em}
+.feels{font-size:1.8rem;color:var(--muted);margin-top:.15rem}
 .tip{display:inline-flex;align-items:center;gap:.8rem;margin-top:1.1rem;padding:.7rem 1.4rem .7rem 1.1rem;border-radius:1.6rem;
   background:linear-gradient(90deg,rgba(255,200,87,.28),rgba(255,126,182,.18));border:1px solid rgba(255,220,150,.35);font-size:1.45rem;font-weight:500;line-height:1.25}
 .tip::before{content:"";flex:none;width:.9rem;height:.9rem;border-radius:50%;background:var(--warm);box-shadow:0 0 1rem var(--warm)}
@@ -105,7 +105,7 @@ body.dim .dimmer{opacity:.38}
 .wtxt{position:relative;z-index:1;min-width:0}
 .wtxt .v{font-size:3.5rem;font-weight:500;line-height:1.1;font-variant-numeric:tabular-nums}
 .wtxt .v small{font-size:1.4rem;color:var(--muted);font-weight:400}
-.wtxt .s{font-size:1.5rem;color:var(--muted);margin-top:.3rem;display:flex;align-items:center;gap:.5rem;line-height:1.15}
+.wtxt .s{white-space:nowrap;font-size:1.4rem;color:var(--muted);margin-top:.3rem;display:flex;align-items:center;gap:.5rem;line-height:1.15}
 .wtxt .s b{color:#fff;font-weight:500}
 #dirArrow{width:1.7rem;height:1.7rem;transition:transform 1s}
 .streak{position:absolute;height:2px;width:5rem;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
@@ -480,7 +480,7 @@ body.dim .dimmer{opacity:.38}
     $('time').textContent=pad(h)+':'+pad(d.getMinutes());
     $('wday').textContent=d.toLocaleDateString('en-GB',{weekday:'long'});
     $('date').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long'});
-    $('greet').textContent = h<5?'Good night':h<12?'Good morning':h<18?'Good afternoon':h<22?'Good evening':'Good night';
+    $('greet').textContent = (h<5?'Good night':h<12?'Good morning':h<18?'Good afternoon':h<22?'Good evening':'Good night') + ' Dingers';
     document.body.classList.toggle('dim', h>=23||h<6);
   }
   tick(); setInterval(tick,1000);
