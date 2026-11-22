@@ -230,6 +230,21 @@ body.dim .dimmer{opacity:.38}
 @keyframes zz{0%{opacity:0;transform:translate(0,0)}30%{opacity:1}100%{opacity:0;transform:translate(14px,-30px)}}
 #fig.windy .tail{animation:flutter .45s ease-in-out infinite alternate;transform-origin:131px 176px}
 @keyframes flutter{from{transform:rotate(-30deg)}to{transform:rotate(8deg)}}
+
+.hbtn{background:none;border:0;padding:.7rem;margin:-.7rem -.1rem -.7rem -.7rem;cursor:pointer;display:flex;-webkit-tap-highlight-color:transparent}
+.hbtn svg{width:1.15rem;height:1.05rem;filter:drop-shadow(0 0 .4rem rgba(255,107,154,.6));animation:hb 2.6s ease-in-out infinite}
+@keyframes hb{0%,100%{transform:scale(1)}12%{transform:scale(1.25)}24%{transform:scale(1)}36%{transform:scale(1.18)}48%{transform:scale(1)}}
+#love{position:fixed;inset:0;z-index:999;pointer-events:none;overflow:hidden;opacity:0;transition:opacity .5s;background:radial-gradient(circle at 50% 50%,rgba(255,80,140,.28),rgba(40,10,50,.55))}
+#love.on{opacity:1}
+.fh{position:absolute;bottom:-12%;left:var(--x);font-size:var(--s);line-height:1;animation:fly var(--d) ease-in var(--dl) forwards;opacity:0;filter:drop-shadow(0 0 .6rem rgba(255,120,170,.7))}
+@keyframes fly{0%{transform:translate(0,0) rotate(-12deg) scale(.5);opacity:0}12%{opacity:1}50%{transform:translate(var(--w),-60vh) rotate(14deg) scale(1)}100%{transform:translate(calc(var(--w)*-.6),-125vh) rotate(-10deg) scale(1.1);opacity:.9}}
+.lovemsg{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) scale(.2);text-align:center;opacity:0;white-space:nowrap}
+#love.on .lovemsg{animation:pop 6s cubic-bezier(.2,1.4,.4,1) forwards}
+@keyframes pop{0%{transform:translate(-50%,-50%) scale(.2) rotate(-6deg);opacity:0}10%{transform:translate(-50%,-50%) scale(1.08) rotate(2deg);opacity:1}18%{transform:translate(-50%,-50%) scale(1) rotate(-1deg)}50%{transform:translate(-50%,-52%) scale(1.04) rotate(1.5deg)}85%{transform:translate(-50%,-50%) scale(1) rotate(-1deg);opacity:1}100%{transform:translate(-50%,-50%) scale(.9);opacity:0}}
+.lovemsg b{display:block;font-size:6.4rem;font-weight:700;letter-spacing:-.02em;line-height:1.05;background:linear-gradient(180deg,#fff,#FFC2DA 60%,#FF7FB0);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 .3rem 1.4rem rgba(255,60,130,.8))}
+.lovemsg span{display:block;margin-top:.8rem;font-size:2.4rem;font-weight:500;color:#FFE3EE;letter-spacing:.06em}
+.sp{position:absolute;font-size:2.2rem;animation:tw 1.2s ease-in-out infinite}
+@keyframes tw{0%,100%{transform:scale(.4) rotate(0);opacity:.2}50%{transform:scale(1.2) rotate(25deg);opacity:1}}
 </style>
 </head>
 <body class="t-night">
@@ -323,7 +338,7 @@ body.dim .dimmer{opacity:.38}
   </g></g>
   <g id="sFog" class="sc"><rect class="fogb" x="-20" y="150" width="200" height="12" rx="6"/><rect class="fogb" x="60" y="178" width="200" height="12" rx="6"/><rect class="fogb" x="-10" y="200" width="160" height="10" rx="5"/></g>
 </svg>
-      </div><div><h1 id="greet">Hello</h1><p><i></i>Sandnes · Rogaland<span class="sunh">☀ <span id="sRise">--</span> – <span id="sSet">--</span></span></p></div></div>
+      </div><div><h1 id="greet">Hello</h1><p><button class="hbtn" id="heart" aria-label="love"><svg viewBox="0 0 24 22"><path d="M12 21 C-4 10 4 -1 12 6 C20 -1 28 10 12 21Z" fill="#FF6B9A"/></svg></button>Sandnes · Rogaland<span class="sunh">☀ <span id="sRise">--</span> – <span id="sSet">--</span></span></p></div></div>
     <div class="outlook" id="outlook">
       <div class="oi" id="oIcon"></div>
       <div class="ot"><b id="oTitle">Checking the sky…</b><span id="oSub">&nbsp;</span></div>
@@ -546,6 +561,24 @@ body.dim .dimmer{opacity:.38}
   }
 
   document.querySelector('.clock').addEventListener('click',goFull);
+  // ---------- little love note ----------
+  (function(){
+    const btn=$('heart'); let busy=false;
+    const E=['💗','💖','💕','💞','💓','❤️','🌸','✨'];
+    btn.addEventListener('click',e=>{
+      e.stopPropagation(); if(busy) return; busy=true;
+      const o=document.createElement('div'); o.id='love';
+      let h='';
+      for(let i=0;i<46;i++){ const sz=(1.6+Math.random()*3.4).toFixed(1);
+        h+=`<span class="fh" style="--x:${(Math.random()*96).toFixed(0)}%;--s:${sz}rem;--d:${(3.4+Math.random()*2.6).toFixed(1)}s;--dl:${(Math.random()*2.4).toFixed(1)}s;--w:${(Math.random()*16-8).toFixed(0)}vw">${E[Math.floor(Math.random()*E.length)]}</span>`; }
+      h+='<span class="sp" style="left:22%;top:30%">✨</span><span class="sp" style="left:74%;top:26%;animation-delay:-.4s">✨</span><span class="sp" style="left:30%;top:64%;animation-delay:-.8s">💫</span><span class="sp" style="left:70%;top:62%;animation-delay:-.2s">✨</span>';
+      h+='<div class="lovemsg"><b>I love you,<br>Mahal ♥</b><span>🌷 forever &amp; always 🌷</span></div>';
+      o.innerHTML=h; document.body.appendChild(o);
+      requestAnimationFrame(()=>requestAnimationFrame(()=>o.classList.add('on')));
+      setTimeout(()=>o.classList.remove('on'),5600);
+      setTimeout(()=>{o.remove();busy=false;},6300);
+    });
+  })();
   // tap the buddy for a little show
   const DEMOS=[
     {label:'Sunny day',code:0,day:1,t:23,ws:3,gust:5,hour:14},
